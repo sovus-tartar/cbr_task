@@ -1,9 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <unistd.h>
 #include "./headers/counter.hh"
 
-int main()
+int main(int argc, char ** argv)
 {
     std::ifstream input_file;
     std::ofstream output_file;
@@ -22,10 +23,24 @@ int main()
     std::string str;
     std::getline(input_file, str);
 
-    output_file << counter::print_order(str, 2); 
+    if (argc == 1)
+        output_file << counter::print_order(str); 
+    else
+    {
+        char opt = getopt(argc, argv, "n");
+        switch(opt)
+        {
+            case 'n':
+                output_file << counter::print_order(str, 3, 1);
+                break;
+            default:
+                std::cerr << "Wrong args, exiting..." << std::endl;
+        }
+    }
+
 
     input_file.close();
     output_file.close();
-    
+
     return 0;
 }

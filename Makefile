@@ -1,8 +1,8 @@
 CXX = g++
 CXXFLAGS = -Wall -g -O -std=c++11
 PROJ = words
-OBJS = main.o 
-HEADERS_PATH = ./headers
+OBJS = main.o counter.o
+
 
 
 all: $(PROJ) 
