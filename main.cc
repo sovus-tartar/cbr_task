@@ -8,12 +8,15 @@ int main(int argc, char ** argv)
 {
     std::ifstream input_file;
     std::ofstream output_file;
+
+    input_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    output_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     try
     {
         input_file.open("in_words.txt", std::ifstream::in);
         output_file.open("out_task.txt", std::ofstream::trunc);
     }
-    catch(const std::exception& e)
+    catch(const std::ios_base::failure& e)
     {
         std::cerr << e.what() << '\n';
         return -1;
@@ -21,7 +24,7 @@ int main(int argc, char ** argv)
     
 
     std::string str;
-    std::getline(input_file, str);
+    std::getline(input_file, str, (char)0);
 
     if (argc == 1)
         output_file << counter::print_order(str); 
